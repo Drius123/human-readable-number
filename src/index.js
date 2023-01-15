@@ -1,6 +1,7 @@
 module.exports = function toReadable (number) {
   let vocabulary = {
     "00" : "",
+    "0" : "zero",
     "1" : "one",
     "2" : "two",
     "3" : "three",
@@ -33,18 +34,17 @@ module.exports = function toReadable (number) {
   let numberStr = number.toString();
   let arr = numberStr.split('');
   if (number < 21){
-    return vocabulary.numberStr;
+    return vocabulary[numberStr];
   } else {
     if (arr.length == 2){
         let dozen = arr[0] + '0';
         let units = arr[1];
-        return vocabulary[dozen] + " " + vocabulary[units];
+        return arr[1] == '0' ? vocabulary[dozen] : vocabulary[dozen] + " " + vocabulary[units];
     } else {
         if (arr[2] == '0'){
             let hundreds = arr[0];
             let dozen = arr[1] + '0';
-            let units = arr[2];
-            return vocabulary[hundreds] + " " + vocabulary.hundred + " " + vocabulary[dozen];
+            return arr[1] == '0' ? vocabulary[hundreds] + " " + vocabulary.hundred : vocabulary[hundreds] + " " + vocabulary.hundred + " " + vocabulary[dozen];
         } else if (arr[1] == '1'){
             let hundreds = arr[0];
             let dozen = arr[1] + arr[2];
